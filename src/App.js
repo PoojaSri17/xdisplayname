@@ -1,61 +1,52 @@
 import React, { useState } from 'react';
-import './App.css';
 
-const App = () => {
+const FullNameForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [fullName, setFullName] = useState('');
-  const [error, setError] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();  // Prevents page reload
-    if (firstName === '' || lastName === '') {
-      setError(true);
-    } else {
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevents the form from reloading the page
+
+    // Ensure both first and last name are filled
+    if (firstName && lastName) {
       setFullName(`${firstName} ${lastName}`);
-      setError(false);
-      // Reset form
-      setFirstName('');
-      setLastName('');
     }
   };
-  
 
   return (
-    <div className="container">
-      <h1>Enter Your Name</h1>
+    <div>
+      <h1>Full Name Display</h1> {/* Ensure this text is always displayed */}
+      
+      {/* Display full name when available */}
+      {fullName && <p>Full Name: {fullName}</p>}
+
+      {/* Form element */}
       <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Enter your first name"
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            id="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Enter your last name"
-          />
-        </div>
-        {error && <p className="error">Both fields are required!</p>}
+        {/* First Name Input */}
+        <input 
+          type="text" 
+          placeholder="First Name" 
+          value={firstName} 
+          onChange={(e) => setFirstName(e.target.value)} 
+          required
+        />
+
+        {/* Last Name Input */}
+        <input 
+          type="text" 
+          placeholder="Last Name" 
+          value={lastName} 
+          onChange={(e) => setLastName(e.target.value)} 
+          required
+        />
+
+        {/* Submit Button */}
         <button type="submit">Submit</button>
       </form>
-
-      {fullName && (
-        <div className="full-name-display">
-          <h2>Full Name: {fullName}</h2>
-        </div>
-      )}
     </div>
   );
 };
 
-export default App;
+export default FullNameForm;
