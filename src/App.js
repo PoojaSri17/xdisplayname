@@ -50,10 +50,10 @@ const FullNameForm = () => {
       </form>
 
       {/* Display error message if form is incomplete */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: 'red' }} id="error-message">{error}</p>}
 
       {/* Display the full name if it's provided */}
-      {fullName && <h2>Full Name: {fullName}</h2>}
+      {fullName && <h2 id="full-name-display">Full Name: {fullName}</h2>}
     </div>
   );
 };
