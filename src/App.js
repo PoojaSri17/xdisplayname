@@ -1,53 +1,64 @@
 import React, { useState } from 'react';
+import './App.css';
 
-const App = () => {
+const DisplayNameForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [fullName, setFullName] = useState('');
-  const [error, setError] = useState('');
+  const [formError, setFormError] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Validate form fields
-    if (!firstName || !lastName) {
-      setError('Both fields are required'); // Set error if fields are empty
-      setFullName(''); // Clear full name display
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (firstName.trim() !== '' && lastName.trim() !== '') {
+      setFullName(`Full Name: ${firstName} ${lastName}`);
+      setFormError('');
     } else {
-      setFullName(`${firstName} ${lastName}`);
-      setError(''); // Clear error if form is successfully submitted
+      setFullName('');
+      setFormError('Please fill out both fields.');
     }
   };
 
   return (
-    <div>
-      <h1>Enter Your Full Name</h1>
+    <div className="centered-form">
+      <h2>Full Name Display</h2>
+
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="first-name">First Name:</label>
+          <label htmlFor="firstName">First Name:</label>
           <input
             type="text"
-            id="first-name"
+            id="firstName"
+            name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First Name"
+            required
           />
         </div>
+        
         <div>
-          <label htmlFor="last-name">Last Name:</label>
+          <label htmlFor="lastName">Last Name:</label>
           <input
             type="text"
-            id="last-name"
+            id="lastName"
+            name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last Name"
+            required
           />
         </div>
-        <button type="submit">Submit</button>
+
+        <button type="submit">
+          Submit
+        </button>
+
+        {formError && <div className="error">{formError}</div>}
       </form>
-      {error && <p id="error-message" style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-      {fullName && <p id="full-name-display">Full Name: {fullName}</p>} {/* Display full name if available */}
+
+      {fullName && (
+        <div className="full-name">{fullName}</div>
+      )}
     </div>
   );
 };
 
-export default App;
+export default DisplayNameForm;
