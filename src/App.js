@@ -4,47 +4,56 @@ const FullNameForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [fullName, setFullName] = useState('');
+  const [error, setError] = useState('');
 
-  // Handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the form from reloading the page
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // Ensure both first and last name are filled
-    if (firstName && lastName) {
+    // Validate the input: both fields must be filled
+    if (!firstName || !lastName) {
+      setError('Both fields are required');
+      setFullName(''); // Reset full name if there's an error
+    } else {
       setFullName(`${firstName} ${lastName}`);
+      setError(''); // Clear any errors
     }
   };
 
   return (
     <div>
-      <h1>Full Name Display</h1>
-      
-      {/* Display full name when available */}
-      {fullName && <p>Full Name: {fullName}</p>}
+      <h1>Enter Your Full Name</h1>
 
-      {/* Ensure the form has an id or class Cypress can target */}
       <form id="full-name-form" onSubmit={handleSubmit}>
-        {/* First Name Input */}
-        <input 
-          type="text" 
-          placeholder="First Name" 
-          value={firstName} 
-          onChange={(e) => setFirstName(e.target.value)} 
-          required
-        />
+        <div>
+          <label htmlFor="first-name">First Name:</label>
+          <input
+            id="first-name"
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
 
-        {/* Last Name Input */}
-        <input 
-          type="text" 
-          placeholder="Last Name" 
-          value={lastName} 
-          onChange={(e) => setLastName(e.target.value)} 
-          required
-        />
+        <div>
+          <label htmlFor="last-name">Last Name:</label>
+          <input
+            id="last-name"
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
 
-        {/* Submit Button */}
         <button type="submit">Submit</button>
       </form>
+
+      {/* Display error message if form is incomplete */}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {/* Display the full name if it's provided */}
+      {fullName && <h2>Full Name: {fullName}</h2>}
     </div>
   );
 };
