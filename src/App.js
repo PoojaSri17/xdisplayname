@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FullNameForm = () => {
+const App = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [fullName, setFullName] = useState('');
@@ -8,54 +8,46 @@ const FullNameForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validate the input: both fields must be filled
+    // Validate form fields
     if (!firstName || !lastName) {
-      setError('Both fields are required');
-      setFullName(''); // Reset full name if there's an error
+      setError('Both fields are required'); // Set error if fields are empty
+      setFullName(''); // Clear full name display
     } else {
       setFullName(`${firstName} ${lastName}`);
-      setError(''); // Clear any errors
+      setError(''); // Clear error if form is successfully submitted
     }
   };
 
   return (
     <div>
       <h1>Enter Your Full Name</h1>
-
-      <form id="full-name-form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="first-name">First Name:</label>
           <input
-            id="first-name"
             type="text"
-            placeholder="First Name"
+            id="first-name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First Name"
           />
         </div>
-
         <div>
           <label htmlFor="last-name">Last Name:</label>
           <input
-            id="last-name"
             type="text"
-            placeholder="Last Name"
+            id="last-name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            placeholder="Last Name"
           />
         </div>
-
         <button type="submit">Submit</button>
       </form>
-
-      {/* Display error message if form is incomplete */}
-      {error && <p style={{ color: 'red' }} id="error-message">{error}</p>}
-
-      {/* Display the full name if it's provided */}
-      {fullName && <h2 id="full-name-display">Full Name: {fullName}</h2>}
+      {error && <p id="error-message" style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+      {fullName && <p id="full-name-display">Full Name: {fullName}</p>} {/* Display full name if available */}
     </div>
   );
 };
 
-export default FullNameForm;
+export default App;
