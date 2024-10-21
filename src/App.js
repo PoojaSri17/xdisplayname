@@ -17,13 +17,13 @@ const FullNameForm = () => {
 
   return (
     <div>
-      <h1>Full Name Display</h1> {/* Ensure this text is always displayed */}
+      <h1>Full Name Display</h1>
       
       {/* Display full name when available */}
       {fullName && <p>Full Name: {fullName}</p>}
 
-      {/* Form element */}
-      <form onSubmit={handleSubmit}>
+      {/* Ensure the form has an id or class Cypress can target */}
+      <form id="full-name-form" onSubmit={handleSubmit}>
         {/* First Name Input */}
         <input 
           type="text" 
