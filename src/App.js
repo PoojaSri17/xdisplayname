@@ -8,7 +8,7 @@ const App = () => {
   const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();  // Prevents page reload
     if (firstName === '' || lastName === '') {
       setError(true);
     } else {
@@ -19,6 +19,7 @@ const App = () => {
       setLastName('');
     }
   };
+  
 
   return (
     <div className="container">
